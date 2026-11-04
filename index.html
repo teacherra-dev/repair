@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>수리 요청</title>
+<meta name="theme-color" content="#2d5d50">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="수리 요청">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+  :root{--g:#2d5d50;--ink:#1f2d2a;--muted:#5f6b66;--bg:#f4f7f5;--card:#fff;--line:#d9e4df}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);
+    padding:calc(env(safe-area-inset-top) + 28px) max(20px,env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 28px) max(20px,env(safe-area-inset-left))}
+  .wrap{max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+  .head{display:flex;gap:14px;align-items:center}
+  .head img{width:64px;height:64px;border-radius:16px}
+  h1{margin:0;font-size:24px}
+  .head p{margin:2px 0 0;color:var(--muted);font-size:14px}
+  .go{display:block;text-align:center;background:var(--g);color:#fff;text-decoration:none;font-size:20px;font-weight:700;padding:18px;border-radius:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+  .card h2{margin:0 0 8px;font-size:16px}
+  .card ol{margin:0;padding-left:20px;line-height:1.75;font-size:15px}
+  .card b{color:var(--g)}
+  .tabs{display:flex;gap:6px;margin-bottom:10px}
+  .tabs button{flex:1;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 0;font:inherit;font-size:14px;cursor:pointer}
+  .tabs button[aria-pressed="true"]{background:var(--g);color:#fff;border-color:var(--g)}
+  .note{font-size:13.5px;color:var(--muted);line-height:1.6;margin:0}
+  #installBtn{display:none;width:100%;border:2px solid var(--g);background:#fff;color:var(--g);font:inherit;font-weight:700;font-size:17px;padding:14px;border-radius:16px;cursor:pointer}
+  .opening{display:none;text-align:center;padding-top:30vh;color:var(--muted)}
+  .opening img{width:72px;border-radius:18px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="opening" id="opening"><img src="icon-192.png" alt=""><div>수리 요청 화면을 여는 중…</div></div>
+<div class="wrap" id="main">
+  <div class="head"><img src="icon-192.png" alt=""><div><h1>기자재 수리 요청</h1><p>발곡고등학교 · 교육정보부</p></div></div>
+  <a class="go" id="go" href="#">수리 요청하기</a>
+  <button id="installBtn" type="button">📲 홈 화면에 앱으로 추가</button>
+  <div class="card">
+    <h2>홈 화면에 앱처럼 추가하기 (처음 한 번)</h2>
+    <div class="tabs"><button type="button" data-t="a" aria-pressed="true">갤럭시</button><button type="button" data-t="i" aria-pressed="false">아이폰</button><button type="button" data-t="p" aria-pressed="false">PC</button></div>
+    <ol data-p="a"><li>이 페이지를 <b>크롬</b>에서 열어요</li><li>오른쪽 위 <b>⋮ → 홈 화면에 추가</b> (또는 <b>앱 설치</b>)</li><li><b>추가</b>를 누르면 🔧 수리 요청 아이콘이 생겨요</li></ol>
+    <ol data-p="i" hidden><li>이 페이지를 <b>사파리</b>에서 열어요</li><li>아래 <b>공유 버튼(□↑)</b> → <b>홈 화면에 추가</b></li><li><b>추가</b>를 누르면 아이콘이 생겨요</li></ol>
+    <ol data-p="p" hidden><li>크롬에서 이 페이지를 열어요</li><li>주소창 오른쪽 <b>설치 아이콘(⊕)</b> 또는 <b>⋮ → 전송, 저장, 공유 → 페이지를 앱으로 설치</b></li><li>바탕화면·작업 표시줄에 아이콘이 생겨요</li></ol>
+  </div>
+  <p class="note">요청 화면은 <b>학교 계정(@ggh.goe.go.kr)</b>으로 열어야 해요. 개인 gmail로 열리면 "권한 없음"이 나와요. 급한 고장은 '급해요'를 눌러 주세요.</p>
+</div>
+<script>
+  var APP = 'https://script.google.com/a/macros/ggh.goe.go.kr/s/AKfycbxpRbHWZ_q2Q17pWkU9_w2d40krAdW2qGXu3AIA0V9CiEq2xn5mGBi8AA7A0wp4Ae2M/exec';
+  document.getElementById('go').href = APP;
+  var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  if (standalone || /[?&]go=1/.test(location.search)) {
+    document.getElementById('main').style.display = 'none';
+    document.getElementById('opening').style.display = 'block';
+    location.replace(APP);
+  }
+  var tabs = document.querySelectorAll('.tabs button');
+  if (/iPhone|iPad/.test(navigator.userAgent)) pick('i'); else if (!/Android/.test(navigator.userAgent)) pick('p');
+  function pick(t){tabs.forEach(function(b){b.setAttribute('aria-pressed', String(b.dataset.t===t))});document.querySelectorAll('ol[data-p]').forEach(function(o){o.hidden = o.dataset.p!==t})}
+  tabs.forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.t)})});
+  var deferred; window.addEventListener('beforeinstallprompt', function(e){e.preventDefault();deferred=e;document.getElementById('installBtn').style.display='block'});
+  document.getElementById('installBtn').addEventListener('click', function(){ if(deferred){deferred.prompt();deferred=null;this.style.display='none'} });
+</script>
+</body>
+</html>
