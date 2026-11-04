@@ -50,10 +50,10 @@
     <ol data-p="i" hidden><li>이 페이지를 <b>사파리</b>에서 열어요</li><li>아래 <b>공유 버튼(□↑)</b> → <b>홈 화면에 추가</b></li><li><b>추가</b>를 누르면 아이콘이 생겨요</li></ol>
     <ol data-p="p" hidden><li>크롬에서 이 페이지를 열어요</li><li>주소창 오른쪽 <b>설치 아이콘(⊕)</b> 또는 <b>⋮ → 전송, 저장, 공유 → 페이지를 앱으로 설치</b></li><li>바탕화면·작업 표시줄에 아이콘이 생겨요</li></ol>
   </div>
-  <p class="note">요청 화면은 <b>학교 계정(@ggh.goe.go.kr)</b>으로 열어야 해요. 개인 gmail로 열리면 "권한 없음"이 나와요. 급한 고장은 '급해요'를 눌러 주세요.</p>
+  <p class="note">요청 화면은 <b>학교 계정</b>(<b>@goedu.kr</b> 또는 <b>@ggh.goe.go.kr</b>)으로 열어 주세요. 개인 gmail로 열리면 "권한 없음"이 나올 수 있어요.</p>
 </div>
 <script>
-  var APP = 'https://script.google.com/a/macros/ggh.goe.go.kr/s/AKfycbxpRbHWZ_q2Q17pWkU9_w2d40krAdW2qGXu3AIA0V9CiEq2xn5mGBi8AA7A0wp4Ae2M/exec';
+  var APP = 'https://script.google.com/macros/s/AKfycbxpRbHWZ_q2Q17pWkU9_w2d40krAdW2qGXu3AIA0V9CiEq2xn5mGBi8AA7A0wp4Ae2M/exec';
   document.getElementById('go').href = APP;
   var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   if (standalone || /[?&]go=1/.test(location.search)) {
